@@ -14,6 +14,7 @@ public class MainTest {
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 10000;
+        Configuration.headless = true;
     }
 
     @Test
@@ -28,7 +29,7 @@ public class MainTest {
     @DisplayName("Тестирование входа в Сбербанк Онлайн Демо")
     public void findAndLoginDemoCabinet (){
         open("https://www.sberbank.ru/ru/");
-        $(By.cssSelector(".ya-site-form-search__button")).click();
+        $(By.xpath("//div[contains(@class, 'search__button')]")).click();
         $(By.className("ya-site-form__input-text")).setValue("демо").pressEnter();
         $(By.xpath("(//yass-span[contains(.,'Демо-версия Сбербанк Онлайн')])[1]")).click();
         switchTo().window(0).close();
@@ -42,7 +43,7 @@ public class MainTest {
     @DisplayName("Тестирование входа в Сбербанк Бизнес Онлайн Демо")
     public void findAndLoginBusinessDemoCabinet (){
         open("https://www.sberbank.ru/ru/");
-        $(By.cssSelector(".ya-site-form-search__button")).click();
+        $(By.xpath("//div[contains(@class, 'search__button')]")).click();
         $(By.className("ya-site-form__input-text")).setValue("Бизнес онлайн").pressEnter();
         $(By.xpath("//yass-span[contains(.,'(СББОЛ)')]")).click();
         switchTo().window(0).close();
