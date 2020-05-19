@@ -8,13 +8,15 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MainTest {
     @BeforeAll
     public static void setUp() {
-        Configuration.timeout = 10000;
-        Configuration.headless = true;
+        Configuration.timeout = 15000;
+        Configuration.headless = false;
+        clearBrowserCache();
     }
 
     @Test
