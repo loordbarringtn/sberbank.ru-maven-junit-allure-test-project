@@ -1,44 +1,59 @@
+import CoreLogic.AllureSteps;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.*;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MainTest {
+    private AllureSteps steps = new AllureSteps();
+
     @BeforeAll
     public static void setUp() {
         Configuration.timeout = 15000;
         Configuration.headless = false;
         clearBrowserCache();
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        SelenideLogger.removeListener("allure");
     }
 
     @Test
     @DisplayName("Тестирование главной страницы")
+    @Description(value = "Загрузка страницы и проверка текста с лицензией")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void openWebsite (){
-        open("https://www.sberbank.ru/ru/");
-        String availableText = $(By.xpath("//div[@class='footer__info']//p[contains(text(),'лицензия')]")).getText();
-        assertTrue(availableText.contains("Генеральная лицензия на осуществление банковских операций от 11 августа 2015 года. Регистрационный номер — 1481."));
+        steps.openWebsite();
+        steps.checkLicenseTextOnMainPage();
     }
 
     @Test
     @DisplayName("Тестирование входа в Сбербанк Онлайн Демо")
+    @Description(value = "Пытаемся войти в демо кабинет Сбербанк онлайн")
+    @Epic("Регресс тесты")
+    @Feature("Тестирование онлайн кабинетов")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void findAndLoginDemoCabinet (){
-        open("https://www.sberbank.ru/ru/");
-        $(By.xpath("//div[contains(@class, 'search__button')]")).click();
-        $(By.className("ya-site-form__input-text")).setValue("демо").pressEnter();
-        $(By.xpath("(//yass-span[contains(.,'Демо-версия Сбербанк Онлайн')])[1]")).click();
-        switchTo().window(0).close();
-        switchTo().window(0);
-        $(By.xpath("//a[@class='close']")).click();
-        String textToCheck = $(By.xpath("//div[@class='simulator-title']")).getText();
-        assertTrue(textToCheck.contains("Демо-версия"));
+        steps.openWebsite();
+        steps.clickOnSearchCircle();
+        steps.typeWordToSearch("Демо-версия Сбербанк Онлайн");
+        steps.clickOnSBOLDemo();
+        steps.closeNeedlessTab();
+        steps.closePopUp();
+        steps.checkSuccessSBOLLogin();
     }
 
     @Test
