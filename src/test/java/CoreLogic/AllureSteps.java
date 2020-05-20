@@ -1,8 +1,6 @@
 package CoreLogic;
-
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,7 +19,7 @@ public class AllureSteps {
 
     @Step("Click on search circle")
     public void clickOnSearchCircle(){
-        $(By.xpath("//div[contains(@class, 'search__button')]")).click();
+        $(By.xpath("//div[@class='ya-site-form-search__button ya-site-form-search_visible ']")).click();
     }
 
     @Step("Type word: {word} to search")

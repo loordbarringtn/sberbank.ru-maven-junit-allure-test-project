@@ -20,7 +20,7 @@ public class MainTest {
 
     @BeforeAll
     public static void setUp() {
-        Configuration.timeout = 15000;
+        Configuration.timeout = 20000;
         Configuration.headless = false;
         clearBrowserCache();
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -87,8 +87,9 @@ public class MainTest {
     @DisplayName("Тестирование раздела о Банке и проставление оценки")
     public void rateBank (){
         open("https://www.sberbank.ru/ru/");
-        $(By.xpath("//a[contains(text(),'О банке')]")).click();
-        $(By.xpath("//a[contains(.,'О миссии и ценностях банка')]")).click();
+        $(byText("О банке")).click();
+        $(byText("О миссии и ценностях банка")).click();
+        Selenide.executeJavaScript("window.scrollBy(0,10000)");
         $(By.xpath("//i[contains(@class,'like-form__icon-like')]//*[local-name()='svg']")).click();
         $(By.xpath("//textarea[@placeholder='Что мы могли бы улучшить?']")).setValue("Много чего!");
         $(By.xpath("//button[@class='kit-button kit-button_type_big like-form__button']")).click();
