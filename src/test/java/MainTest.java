@@ -48,7 +48,7 @@ public class MainTest {
         steps.clickOnSearchResults("Демо-версия Сбербанк Онлайн");
         steps.closeNeedlessTab();
         steps.closePopUp();
-        steps.checkSuccessSBOLLogin();
+        steps.checkSuccessSbolLogin();
     }
 
     @Test

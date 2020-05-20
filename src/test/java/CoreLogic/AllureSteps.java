@@ -79,7 +79,7 @@ public class AllureSteps {
     }
 
     @Step("Check that we logged in demo SBOL successfully")
-    public void checkSuccessSBOLLogin(){
+    public void checkSuccessSbolLogin(){
         String textToCheck = $(By.xpath("//div[@class='simulator-title']")).getText();
         assertTrue(textToCheck.contains("Демо-версия"));
     }
