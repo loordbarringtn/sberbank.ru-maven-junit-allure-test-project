@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
+import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 
 public class MainTest {
     private AllureSteps steps = new AllureSteps();
@@ -23,12 +24,13 @@ public class MainTest {
     @AfterAll
     public static void tearDown() {
         SelenideLogger.removeListener("allure");
+        closeWebDriver();
     }
 
     @Test
     @DisplayName("Тестирование главной страницы")
     @Description(value = "Загрузка страницы и проверка текста с лицензией")
-    @Epic("Регресс тесты")
+    @Epic("Смок тесты")
     @Severity(value = SeverityLevel.BLOCKER)
     public void openWebsite (){
         steps.openWebsite();
@@ -87,7 +89,7 @@ public class MainTest {
     @Test
     @DisplayName("Тестирование раздела о Банке и проставление оценки")
     @Description(value = "Пишем текст для оценки страницы")
-    @Epic("Регресс тесты")
+    @Epic("Смок тесты")
     @Severity(value = SeverityLevel.NORMAL)
     public void rateBank (){
         steps.openWebsite();
