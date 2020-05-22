@@ -1,12 +1,9 @@
 import CoreLogic.AllureSteps;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideDriver;
-import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.*;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.io.IOException;
 
@@ -84,8 +81,8 @@ public class MainTest {
     @Description(value = "Ищем вакансию для Java разработчика")
     @Epic("Регресс тесты")
     @Severity(value = SeverityLevel.NORMAL)
-    @RepeatedTest(10)
-    public void searchVacancy () throws IOException {
+    @RepeatedTest(1)
+    public void searchVacancy () {
         steps.openWebsite();
         steps.scrollToBottomOfPage();
         steps.clickOnWebElement("Вакансии");
