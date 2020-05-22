@@ -18,8 +18,12 @@ public class MainTest {
         Configuration.timeout = 20000;
         Configuration.headless = false;
         clearBrowserCache();
-        SelenideLogger.addListener("allure", new AllureSelenide());
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide()
+                        .screenshots(true)
+                        .savePageSource(true));
     }
+
 
     @AfterAll
     public static void tearDown() {
