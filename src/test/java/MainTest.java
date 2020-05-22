@@ -1,12 +1,15 @@
 import CoreLogic.AllureSteps;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.SelenideDriver;
+import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.*;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import java.io.IOException;
+
 import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
 import static com.codeborne.selenide.WebDriverRunner.closeWebDriver;
 
@@ -15,7 +18,7 @@ public class MainTest {
 
     @BeforeAll
     public static void setUp() {
-        Configuration.timeout = 20000;
+        Configuration.timeout = 25000;
         Configuration.headless = false;
         clearBrowserCache();
         SelenideLogger.addListener("AllureSelenide",
@@ -81,11 +84,13 @@ public class MainTest {
     @Description(value = "Ищем вакансию для Java разработчика")
     @Epic("Регресс тесты")
     @Severity(value = SeverityLevel.NORMAL)
-    public void searchVacancy (){
+    @RepeatedTest(10)
+    public void searchVacancy () throws IOException {
         steps.openWebsite();
         steps.scrollToBottomOfPage();
         steps.clickOnWebElement("Вакансии");
         steps.searchVacancy("Java");
+        steps.makeScreenshot("BeAware");
         steps.closeNeedlessTab();
         steps.clickOnWebElement("Java разработчик");
     }

@@ -1,8 +1,23 @@
 package CoreLogic;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.*;
+import com.google.common.io.Files;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -38,7 +53,7 @@ public class AllureSteps {
 
     @Step("Кликаем по web элементу: {webElement}")
     public void clickOnWebElement(String webElement){
-        $$(byText(""+webElement+"")).find(Condition.visible).click();
+          $$(byText(""+webElement+"")).find(Condition.visible).click();
     }
 
     @Step("Кликаем по ссылке для продолжения работы в демо-режиме")
@@ -89,4 +104,17 @@ public class AllureSteps {
         assertTrue(textToCheck.contains("Иванов Иван Иванович"));
     }
 
+    public String getCurrentDateAndTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH.mm.ss");
+        Date today = Calendar.getInstance().getTime();
+        String date = dateFormat.format(today);
+        return date;
+    }
+
+    public void makeScreenshot(String fileName) {
+        try {
+            Allure.addAttachment(fileName + ".png", new FileInputStream(screenshot(fileName+getCurrentDateAndTime())));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }}
 }
