@@ -21,7 +21,7 @@
         <allure-maven.version>2.10.0</allure-maven.version>
         <selenide.version>5.11.1</selenide.version>
         <rest-assured.version>4.3.0</rest-assured.version>
-        <log4j-api.version>2.13.0</log4j-api.version>
+        <log4j-api.version>2.17.0</log4j-api.version>
         <log4j-core.version>2.13.2</log4j-core.version>
         <log4j-slf4j-impl.version>2.13.0</log4j-slf4j-impl.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
